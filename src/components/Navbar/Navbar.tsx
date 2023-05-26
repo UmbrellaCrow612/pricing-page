@@ -7,6 +7,7 @@ import {
   Database,
   Github,
   Globe,
+  Menu,
   MessageCircle,
   MessageSquare,
   PlusCircle,
@@ -37,11 +38,13 @@ import { Keyboard } from "lucide-react";
 import { Settings } from "lucide-react";
 import { CreditCard } from "lucide-react";
 import { User } from "lucide-react";
+import { useState } from "react";
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
   return (
     <>
-      <nav className="flex items-center justify-between max-w-screen-xl px-10 mx-auto h-14">
+      <nav className="flex items-center justify-between max-w-screen-xl px-5 mx-auto h-14">
         <button className="outline-[#d3e5ff] outline-offset-2 relative ring-offset-4 transition-all ease-in-out">
           <LogoSvg />
         </button>
@@ -52,10 +55,70 @@ export default function Navbar() {
           <Button>Contact</Button>
           <AvatarProfile />
         </div>
+
+        <div className="lg:hidden">
+          <Button variant={"ghost"} onClick={() => setOpen(!open)}>
+            <Menu />
+          </Button>
+        </div>
       </nav>
+      {open && <MobileMenu />}
     </>
   );
 }
+
+const MobileMenu = () => {
+  return (
+    <>
+      <div className="grid gap-6 px-5 py-5 lg:hidden">
+        <Button variant={"outline"}>Contact</Button>
+        <Button variant={"ghost"} className="justify-between py-10">
+          UmbrellaMan612
+          <Avatar>
+            <AvatarImage src="https://github.com/shadcn.png" alt="@" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </Button>
+        <Button variant={"outline"} className="justify-start">
+          Dashboard
+        </Button>
+        <Button variant={"outline"} className="justify-start">
+          Settings
+        </Button>
+        <Button variant={"outline"} className="justify-start">
+          New team
+        </Button>
+        <Button variant={"outline"} className="justify-start">
+          Theme
+        </Button>
+        <Button variant={"outline"} className="justify-start">
+          Logout
+        </Button>
+        <Button variant={"outline"} className="justify-between">
+          Features <ChevronDown className="w-4 h-4" />
+        </Button>
+        <Button variant={"outline"} className="justify-start">
+          Docs
+        </Button>
+        <Button variant={"outline"} className="justify-start">
+          Templates
+        </Button>
+        <Button variant={"outline"} className="justify-start">
+          Integrations
+        </Button>
+        <Button variant={"outline"} className="justify-start">
+          Customers
+        </Button>
+        <Button variant={"outline"} className="justify-start">
+          Enterprise
+        </Button>
+        <Button variant={"outline"} className="justify-start">
+          Pricing
+        </Button>
+      </div>
+    </>
+  );
+};
 
 const DesktopLinks = () => {
   return (
@@ -195,7 +258,7 @@ const AvatarProfile = () => {
             <LifeBuoy className="w-4 h-4 mr-2" />
             <span>Support</span>
           </DropdownMenuItem>
-          <DropdownMenuItem disabled>
+          <DropdownMenuItem>
             <Cloud className="w-4 h-4 mr-2" />
             <span>API</span>
           </DropdownMenuItem>
